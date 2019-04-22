@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+  <style media="screen">
+    h4{
+      text-align: center;
+      font-size: 18px;
+    }
+    button{
+      padding: 1%;
+      margin: 2.5%;
+
+    }
+    #btn-div{
+      margin: auto;
+      width: 70%;
+    }
+  </style>
+    <title></title>
+  </head>
+  <body>
+    <h4>Remove all items from list?</h4>
+    <div id='btn-div'>
+      <button class="btn waves-effect waves-light btn-small" id='clearOk'>Ok</button>
+      <button  class="btn waves-effect waves-light btn-small" id='cancel'>Cancel</button>
+      </div>
+
+      <script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+        document.getElementById('clearOk').addEventListener('click', () => {
+          ipcRenderer.send('item:clearConfirmed',true);
+          //mainWindow.webContents.send('item:clear');
+        });
+        document.getElementById('cancel').addEventListener('click', () => {
+          ipcRenderer.send('item:clearConfirmed',false);
+
+        })
+        </script>
+
+
+  </body>
+</html>

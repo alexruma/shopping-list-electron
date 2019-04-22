@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+
+    <title>Alex's Shopping List Desktop App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  </head>
+  <body>
+
+
+    <div id ='items'>
+    <nav>
+      <div class ='nav-wrapper'>
+        <a class ="brand-logo center"> Shopping List Items </a>
+        </div>
+    </nav>
+      <ul>
+
+      </ul>
+      </div>
+      <script>
+          const electron = require('electron');
+          const {ipcRenderer} = electron;
+          const ul = document.querySelector('ul');
+
+          ipcRenderer.on('item:add', (e, item) => {
+            ul.className='collection';
+            const li = document.createElement('li');
+            li.className='collection-item'
+            const itemText = item;
+            li.innerText = itemText;
+            ul.appendChild(li);
+          });
+
+          ipcRenderer.on('item:clear', (e) => {
+            ul.innerHTML="";
+
+            ipcRenderer.send('item:clearComplete');
+          });
+
+          //Remove item
+          ul.addEventListener('dblclick', removeItem);
+
+          function removeItem(e){
+            e.target.remove();
+            if(ul.children.length=0){
+              ul.className = '';
+            }
+          }
+
+
+        </script>
+  </body>
+</html>
